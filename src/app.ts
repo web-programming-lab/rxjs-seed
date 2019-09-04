@@ -1,9 +1,9 @@
-import {interval} from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { take, map, filter, scan } from 'rxjs/operators';
 
 
-var source = interval(400).pipe(
-  take(9), 
+let source = interval(400).pipe(
+  take(9),
   map(i => ['1', '1', 'foo', '2', '3', '5', 'bar', '8', '13'][i]));
 
 // TODO: Create an Observable `result` that emits the 
@@ -12,4 +12,4 @@ var source = interval(400).pipe(
 // concat, take, etc.
 
 result.subscribe(x => console.log(x));
-
+
