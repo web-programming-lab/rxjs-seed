@@ -10,4 +10,4 @@ let students = [
 
 // Create an Observable from students list and 
 // filter list for students in class 1. Print the values on console.
-
+
