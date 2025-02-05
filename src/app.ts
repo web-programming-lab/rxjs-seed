@@ -18,12 +18,10 @@ productFilter.subscribe(filter => {
 })
 
 // Option 2
-const detailProduct: Observable<ProductDetails> = productFilter.pipe(
+productFilter.pipe(
     map(productFilter => productFilter.searchString),
     switchMap(searchString => fetchProductDetails(searchString))
-)
-
-detailProduct.subscribe(details => console.log("[2] Product Details:", details))
+).subscribe(details => console.log("[2] Product Details:", details))
 
 productFilter.next({searchString: "Apple"})
 productFilter.next({searchString: "Samsung"})
