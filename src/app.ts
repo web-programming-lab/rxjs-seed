@@ -1,4 +1,4 @@
-import {delay, Observable, of, Subject} from "rxjs";
+import {debounceTime, delay, Observable, of, Subject} from "rxjs";
 import {map, switchMap} from "rxjs/operators";
 
 interface ProductFilter {
@@ -20,6 +20,7 @@ productFilter.subscribe(filter => {
 
 // Option 2
 productFilter.pipe(
+    debounceTime(250),
     map(productFilter => productFilter.searchString),
     switchMap(searchString => fetchProductDetails(searchString))
 ).subscribe(details =>
@@ -36,6 +37,24 @@ function fetchProductDetails(searchString: string): Observable<ProductDetails> {
         name,
         price: Math.floor(Math.random() * 100)
     }).pipe(
-        // delay(250)
+        delay(250)
     )
 }
+
+// using Signals in Angular
+
+/*
+
+productFilter.next({searchString: "Apple"})
+productFilter.next({searchString: "Samsung"})
+
+const search = signal('Apple')
+search.set('Samsung')
+
+const productDetails = computed( () => {
+    fetchProductDetails(this.search())
+})
+
+{{ productDetails() }}
+
+*/
